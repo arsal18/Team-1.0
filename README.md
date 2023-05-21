@@ -5,4 +5,4 @@ Group Members:
 - _Arsal Abbasi_
 - _Ashraf Siddiqi_
 - _Doluwamu Taiwo_
--~~_Ahmed Helmy~~ (Dropped the course)
+- ~~_Ahmed Helmy_~~ (Dropped the course)
