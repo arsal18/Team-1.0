@@ -1,0 +1,51 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.preprocessing import LabelEncoder
+
+# Example data
+data = {
+    'truck_id': [1, 2, 3, 4, 1, 2, 3, 4],
+    'speed': [80, 75, 78, 70, 85, 82, 76, 72],
+    'distance_to_next_truck': [50, 60, 55, 65, 40, 45, 50, 55],
+    'acceleration': [2, 1.5, 1.8, 1.2, 2.5, 2.3, 1.6, 1.4],
+    'lead_truck': [1, 0, 0, 0, 1, 0, 0, 0]
+}
+
+df = pd.DataFrame(data)
+
+# Separate features and labels
+features = df[['speed', 'distance_to_next_truck', 'acceleration']]
+labels = df['lead_truck']
+
+# Split the data into training and test sets
+train_ratio = 0.8
+train_size = int(train_ratio * len(df))
+
+train_features = features[:train_size]
+train_labels = labels[:train_size]
+test_features = features[train_size:]
+test_labels = labels[train_size:]
+
+# Create the decision tree classifier
+clf = DecisionTreeClassifier()
+
+# Train the model
+clf.fit(train_features, train_labels)
+
+# Evaluate the model
+accuracy = clf.score(test_features, test_labels)
+print(f"Accuracy: {accuracy}")
+
+# Example new data for prediction
+new_data = {
+    'speed': [75, 80, 72, 100],
+    'distance_to_next_truck': [55, 50, 60, 10],
+    'acceleration': [1.5, 2, 1.4, 2.1]
+}
+
+new_df = pd.DataFrame(new_data)
+
+# Make predictions for the new data
+predictions = clf.predict(new_df)
+lead_truck = new_df[predictions == 1]['speed'].idxmax()
+print(f"Lead Truck: {lead_truck}")
